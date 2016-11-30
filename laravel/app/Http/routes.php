@@ -39,7 +39,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::group(['middleware' => 'auth', 'prefix' => 's_admin'], function () {
-    Route::get('/', 'HomeController@login');
+    Route::get('/', 'HomeController@admin');
     
     Route::get('user/profile', function () {
         // Uses Auth Middleware

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Property;
+use App\PropertyType;
 
-use App\Http\Requests;
 
 class PropertyController extends Controller
 {
@@ -27,7 +27,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return "You're trying to create a property";
+
     }
 
     /**

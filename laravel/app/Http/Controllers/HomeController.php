@@ -29,9 +29,16 @@ class HomeController extends Controller
         $data['listings'] = Listing::all();
         return view('announcements', $data);
     }
-    
+
+    public function admin()
+    {
+        $data = [];
+        $data['listings'] = Listing::all();
+        return view('admin.admin', $data);
+    }
+
     public function login() {
         $this->middleware('auth');
-        return view('admin/home');
+        return view('auth.login');
     }
 }

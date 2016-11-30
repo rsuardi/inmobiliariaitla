@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Property;
+use App\PropertyType;
+
+use Illuminate\Support\Facades\Input;
 
 class ListingController extends Controller
 {
@@ -25,7 +29,8 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return view()
+        $propertyTypes = PropertyType::all();
+        return view('ad.create', ['propertyTypes' => $propertyTypes]);
     }
 
     /**
@@ -36,7 +41,52 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $property = [
+            'latitude' => Input::get('latitude'),
+            'longitude' => Input::get('longitude'),
+            'property_type_id' => 1
+        ];
+
+        var_dump($property);
+        exit();
+
+        $property = Property::create($property);
+
+        $listing = [
+            'title' => Input::get('title'),
+            'description' => Input::get('description'),
+            'price' => Input::get('price'),
+            'property_id' => $property->id
+        ];
+
+        $listing = Listing::create($listing);
+
+        if(Input::file())
+        {
+            $image = Input::file('file');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+            $path = public_path('img/announcement/' . $filename);
+            $vvvvPath = 'img/announcement/' . $filename;
+
+
+            Image::make($image->getRealPath())->save($path);
+
+        } else {
+            $vvvvPath = 'img/announcement/placeholder.jpg';
+        }
+
+
+
+        $listingImage = [
+            'listing_id' => $listing->id,
+            'image_path' => $vvvvPath
+        ];
+
+
+        $listingImage = ListingImage::create($listingImage);
+
+        return redirect('/');
     }
 
     /**
