@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,8 @@ class HomeController extends Controller
     public function admin()
     {
         $data = [];
-        $data['listings'] = Listing::all();
+        $data['listings'] = Listing::where('user_id', Auth::id())
+                            ->get();
         return view('admin.admin', $data);
     }
 

@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Property;
 use App\PropertyType;
 use App\Listing;
+use App\ListingImage;
 
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 
 use Illuminate\Support\Facades\Input;
@@ -52,11 +54,14 @@ class ListingController extends Controller
 
         $property = Property::create($property);
 
+        $userId = Auth::id();
+
         $listing = [
             'title' => Input::get('title'),
             'description' => Input::get('description'),
             'price' => Input::get('price'),
-            'property_id' => $property->id
+            'property_id' => $property->id,
+            'user_id' => $userId
         ];
 
         $listing = Listing::create($listing);
@@ -86,7 +91,7 @@ class ListingController extends Controller
 
         $listingImage = ListingImage::create($listingImage);
 
-        return redirect('/');
+        return redirect('/s_admin/');
     }
 
     /**
