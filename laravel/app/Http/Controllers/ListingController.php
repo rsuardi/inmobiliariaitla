@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Property;
 use App\PropertyType;
+use App\Listing;
+
+use Intervention\Image\ImageManagerStatic as Image;
 
 use Illuminate\Support\Facades\Input;
 
@@ -46,9 +49,6 @@ class ListingController extends Controller
             'longitude' => Input::get('longitude'),
             'property_type_id' => 1
         ];
-
-        var_dump($property);
-        exit();
 
         $property = Property::create($property);
 
